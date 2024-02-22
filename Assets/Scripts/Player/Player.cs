@@ -20,7 +20,7 @@ public class Player : Entity
     public float dashDir {get; private set;}
 
     public SkillManager skill {get; private set;}
-    public GameObject sword; // {get; private set;}
+    public GameObject sword  {get; private set;}
 
     #region States
    public PlayerStatemachine stateMachine {get; private set;}
@@ -36,6 +36,7 @@ public class Player : Entity
    public PlayerCounterAttackState counterAttack {get; private set;}
    public PlayerAimSwordState aimSword {get; private set;}
    public PlayerCatchSwordState catchSword {get; private set;}
+    public PlayerBlackHoleState blackHole { get; private set; }
     #endregion
 
    protected override void Awake(){
@@ -54,6 +55,7 @@ public class Player : Entity
 
     aimSword = new PlayerAimSwordState(this, stateMachine, "AimSword");
     catchSword = new PlayerCatchSwordState(this, stateMachine, "CatchSword");
+        blackHole = new PlayerBlackHoleState(this, stateMachine, "Jump");
 
    }
    
@@ -78,6 +80,8 @@ public class Player : Entity
     stateMachine.ChangeState(catchSword);
     Destroy(sword);
    }
+
+    
     public IEnumerator BusyFor(float _seconds){
         isBusy = true;
         yield return new WaitForSeconds(_seconds);

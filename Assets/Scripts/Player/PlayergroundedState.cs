@@ -21,6 +21,10 @@ public class PlayergroundedState : PlayerState
     public override void Update()
     {
         base.Update();
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            stateMachine.ChangeState(player.blackHole);
+        }
         if(Input.GetKeyDown(KeyCode.Mouse1) && hasNoSword()){
             stateMachine.ChangeState(player.aimSword);
         }
