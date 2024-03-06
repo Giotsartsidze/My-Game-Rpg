@@ -30,7 +30,7 @@ public class EnemyState
 
    public virtual void Exit(){
     enemyBase.anim.SetBool(animBoolname, false);
-
+        enemyBase.AssignLastAnimName(animBoolname);
    }
 
    public virtual void AnimationFinishTrigger() {

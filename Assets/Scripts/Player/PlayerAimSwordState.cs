@@ -18,7 +18,7 @@ public class PlayerAimSwordState : PlayerState
     {
         base.Update();
 
-        // player.SetZeroVelocity();
+        player.SetVelocity(0,0);
     
 
         if(Input.GetKeyUp(KeyCode.Mouse1)){

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,8 +23,9 @@ public class Player : Entity
     public SkillManager skill {get; private set;}
     public GameObject sword  {get; private set;}
 
+
     #region States
-   public PlayerStatemachine stateMachine {get; private set;}
+    public PlayerStatemachine stateMachine {get; private set;}
    public PlayerIdleState idleState {get; private set;}
    public PlayerMoveState moveState {get; private set;}
    public PlayerJumpState jumpState{get; private set;}
@@ -37,6 +39,7 @@ public class Player : Entity
    public PlayerAimSwordState aimSword {get; private set;}
    public PlayerCatchSwordState catchSword {get; private set;}
     public PlayerBlackHoleState blackHole { get; private set; }
+    public PlayerDeathState  deadState { get; private set; }
     #endregion
 
    protected override void Awake(){
@@ -55,7 +58,9 @@ public class Player : Entity
 
     aimSword = new PlayerAimSwordState(this, stateMachine, "AimSword");
     catchSword = new PlayerCatchSwordState(this, stateMachine, "CatchSword");
-        blackHole = new PlayerBlackHoleState(this, stateMachine, "Jump");
+    blackHole = new PlayerBlackHoleState(this, stateMachine, "Jump");
+
+    deadState = new PlayerDeathState(this, stateMachine, "Die");
 
    }
    
@@ -107,7 +112,11 @@ public class Player : Entity
             stateMachine.ChangeState(dashState);
         }
    }
-   
-   
-   
+
+    public override void Die()
+    {
+        base.Die();
+        stateMachine.ChangeState(deadState);
+    }
+
 }

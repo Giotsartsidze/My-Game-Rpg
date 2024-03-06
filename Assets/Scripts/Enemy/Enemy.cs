@@ -24,6 +24,7 @@ public class Enemy : Entity
     [HideInInspector] public float lastTimeAttack;
    
     public EnemyStateMachine stateMachine {get; private set;}
+    public string lastAnimBoolName { get; private set; }
     
     protected override void Awake() {
         base.Awake();
@@ -80,7 +81,10 @@ public class Enemy : Entity
         return false;
     }
 
-
+    public virtual void AssignLastAnimName(string _animBoolName)
+    {
+        lastAnimBoolName = _animBoolName;
+    }
     
     public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
     public virtual RaycastHit2D IsPlayerDetected() {
