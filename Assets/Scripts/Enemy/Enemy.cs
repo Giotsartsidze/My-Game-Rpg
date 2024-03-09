@@ -37,6 +37,20 @@ public class Enemy : Entity
         stateMachine.currentState.Update();
     }
 
+    public virtual void AssignLastAnimName(string _animBoolName) => lastAnimBoolName = _animBoolName;
+    public override void SlowEntityBy(float _slowPercantage, float _slowDuration)
+    {
+        moveSpeed = moveSpeed * (1 - _slowPercantage);
+        anim.speed = anim.speed * (1 - _slowPercantage);
+
+        Invoke("ReturnDefaultSpeed", _slowDuration);
+    }
+
+    protected override void ReturnDefaultSpeed()
+    {
+        base.ReturnDefaultSpeed();
+        moveSpeed = defaultMoveSpeed;
+    }
     public virtual void FreezeTime(bool _timeFrozen)
     {
         if (_timeFrozen)
@@ -81,10 +95,7 @@ public class Enemy : Entity
         return false;
     }
 
-    public virtual void AssignLastAnimName(string _animBoolName)
-    {
-        lastAnimBoolName = _animBoolName;
-    }
+   
     
     public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
     public virtual RaycastHit2D IsPlayerDetected() {

@@ -308,12 +308,48 @@ MonoBehaviour:
   strength:
     baseValue: 0
     modifires: 
+  agility:
+    baseValue: 0
+    modifires: 
+  intelligence:
+    baseValue: 0
+    modifires: 
+  vitality:
+    baseValue: 0
+    modifires: 
   damage:
     baseValue: 5
+    modifires: 
+  critChance:
+    baseValue: 0
+    modifires: 
+  critPower:
+    baseValue: 0
     modifires: 
   maxHealth:
     baseValue: 1000
     modifires: 
+  armor:
+    baseValue: 0
+    modifires: 
+  evasion:
+    baseValue: 70
+    modifires: 
+  magicResistance:
+    baseValue: 1
+    modifires: 
+  fireDamage:
+    baseValue: 0
+    modifires: 
+  iceDamage:
+    baseValue: 0
+    modifires: 
+  lightningDamage:
+    baseValue: 0
+    modifires: 
+  isIgnited: 0
+  isChilled: 0
+  isShocked: 0
   currentHealth: 1000
 --- !u!1 &214366057
 GameObject:
@@ -1355,13 +1391,49 @@ MonoBehaviour:
   strength:
     baseValue: 0
     modifires: 
+  agility:
+    baseValue: 0
+    modifires: 
+  intelligence:
+    baseValue: 0
+    modifires: 
+  vitality:
+    baseValue: 0
+    modifires: 
   damage:
     baseValue: 10
     modifires: 
-  maxHealth:
+  critChance:
+    baseValue: 99
+    modifires: 
+  critPower:
     baseValue: 0
     modifires: 
-  currentHealth: 1000
+  maxHealth:
+    baseValue: 1000
+    modifires: 
+  armor:
+    baseValue: 0
+    modifires: 
+  evasion:
+    baseValue: 0
+    modifires: 
+  magicResistance:
+    baseValue: 0
+    modifires: 
+  fireDamage:
+    baseValue: 5
+    modifires: 
+  iceDamage:
+    baseValue: 10
+    modifires: 
+  lightningDamage:
+    baseValue: 22
+    modifires: 
+  isIgnited: 0
+  isChilled: 0
+  isShocked: 0
+  currentHealth: 0
 --- !u!70 &983352774
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

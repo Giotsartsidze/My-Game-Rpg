@@ -11,6 +11,11 @@ public class EntityFX : MonoBehaviour
     [SerializeField] private Material hitMat;
     private Material originalMat;
 
+    [Header("ailment colors")]
+    [SerializeField] private Color[] chilledColor;
+    [SerializeField] private Color[] ingiteColor;
+    [SerializeField] private Color[] shockColor;
+
     private void Start() {
         sr = GetComponentInChildren<SpriteRenderer>();
         originalMat = sr.material;
@@ -18,7 +23,12 @@ public class EntityFX : MonoBehaviour
 
     private IEnumerator FlashFX(){
         sr.material = hitMat;
+        Color currentColor = sr.color;
+        sr.color = Color.white;
+
+
         yield return new WaitForSeconds(flashDuration);
+        sr.color = currentColor;
         sr.material = originalMat;
     }
 
@@ -29,8 +39,62 @@ public class EntityFX : MonoBehaviour
             sr.color = Color.red;
         }
     }
-    private void CancelRedBlink(){
+    private void CancelColorChange(){
         CancelInvoke();
         sr.color = Color.white;
     }
+    public void IgniteFxFor(float _seconds)
+    {
+        InvokeRepeating("IgniteColorFX", 0, .3f);
+        Invoke("CancelColorChange", _seconds);
+    }
+
+    public void ChillFxFor(float _seconds)
+    {
+        InvokeRepeating("ChillColorFx", 0, .3f);
+        Invoke("CancelColorChange", _seconds);
+    } 
+    
+    public void ShockFxFor(float _seconds)
+    {
+        InvokeRepeating("ShockColorFx", 0, .3f);
+        Invoke("CancelColorChange", _seconds);
+    }
+
+    private void IgniteColorFX()
+    {
+        if(sr.color != ingiteColor[0])
+        {
+            sr.color = ingiteColor[0];
+        }
+        else
+        {
+            sr.color = ingiteColor[1];
+        }
+    }
+    private void ChillColorFx()
+    {
+        if (sr.color != chilledColor[0])
+        {
+            sr.color = chilledColor[0];
+        }
+        else
+        {
+            sr.color = chilledColor[1];
+        }
+    }
+
+    private void ShockColorFx()
+    {
+        if (sr.color != shockColor[0])
+        {
+            sr.color = shockColor[0];
+        }
+        else
+        {
+            sr.color = shockColor[1];
+        }
+    }
+
+    
 }

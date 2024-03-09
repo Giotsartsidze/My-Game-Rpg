@@ -18,6 +18,8 @@ public class Entity : MonoBehaviour
     public int facingDir {get; private set;} = 1;
     protected bool facingRight = true;
 
+    public System.Action onFlipped;
+
 
     #region Components
     public Animator anim {get; private set;}
@@ -50,6 +52,15 @@ public class Entity : MonoBehaviour
         
     }
 
+    public virtual void SlowEntityBy(float _slowPercantage, float _slowDuration)
+    {
+
+    }
+
+    protected virtual void ReturnDefaultSpeed()
+    {
+        anim.speed = 1;
+    }
     public virtual void DamageEffect(){
         fx.StartCoroutine("FlashFX");
         StartCoroutine("HitKnockBack");
@@ -74,11 +85,15 @@ public class Entity : MonoBehaviour
    }
     #endregion
     #region Flip
-    public void Flip(){
-    facingDir = facingDir * -1;
-    facingRight = !facingRight;
-    transform.Rotate(0, 180, 0);
-   }
+    public void Flip()
+    {
+        facingDir = facingDir * -1;
+        facingRight = !facingRight;
+        transform.Rotate(0, 180, 0);
+
+        if(onFlipped != null)
+            onFlipped();
+    }
    public void FlipController( float _x){
     if(_x > 0 && !facingRight){
         Flip();
