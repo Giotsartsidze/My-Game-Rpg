@@ -27,7 +27,7 @@ public class Clone_Skill : Skill
             return;
         }
         GameObject newClone = Instantiate(clonePrefab);
-        newClone.GetComponent<Clone_Skill_Controller>().SetUpClone(_clonePosition, cloneDuration, canAttack, _offset, FindClosestEnemy(newClone.transform), canDuplicateClone,chanceToDuplicate);
+        newClone.GetComponent<Clone_Skill_Controller>().SetUpClone(_clonePosition, cloneDuration, canAttack, _offset, FindClosestEnemy(newClone.transform), canDuplicateClone,chanceToDuplicate, player);
     }
 
     public void CreateCloneOnDashStart()

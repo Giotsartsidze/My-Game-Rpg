@@ -13,8 +13,6 @@ public class Enemy_Stats : CharacterStats
     public override void TakeDamage(int _damage)
     {
         base.TakeDamage(_damage);
-
-        enemy.DamageEffect();
     }
 
     protected override void Die()
