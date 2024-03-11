@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthBar_UI : MonoBehaviour
 {
     private Entity entity;
+    private CharacterStats myStats;
     private RectTransform myTransform;
     private Slider slider;
-    private CharacterStats myStats;
+
 
     private void Start()
     {
@@ -16,6 +15,7 @@ public class HealthBar_UI : MonoBehaviour
         entity = GetComponentInParent<Entity>();
         slider = GetComponentInChildren<Slider>();
         myStats = GetComponentInParent<CharacterStats>();
+
 
         entity.onFlipped += FlipUI;
         myStats.onHealthChanged += UpdateHealthUI;
@@ -29,8 +29,10 @@ public class HealthBar_UI : MonoBehaviour
         slider.value = myStats.currentHealth;
     }
 
-    private void FlipUI() => myTransform.Rotate(0, 180, 0);
 
+
+
+    private void FlipUI() => myTransform.Rotate(0, 180, 0);
     private void OnDisable()
     {
         entity.onFlipped -= FlipUI;

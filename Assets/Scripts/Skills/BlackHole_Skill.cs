@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlackHole_Skill : Skill
+public class Blackhole_Skill : Skill
 {
-    [SerializeField] private  int amountOfAttacks;
-    [SerializeField] private float cloneCoolDown;
-    [SerializeField] private float blackHoleDuration;
+    [SerializeField] private int amountOfAttacks;
+    [SerializeField] private float cloneCooldown;
+    [SerializeField] private float blackholeDuration;
     [Space]
     [SerializeField] private GameObject blackHolePrefab;
     [SerializeField] private float maxSize;
     [SerializeField] private float growSpeed;
     [SerializeField] private float shrinkSpeed;
 
-    BlackHole_Skill_Contoller currentBlackHole;
 
+    Blackhole_Skill_Controller currentBlackhole;
     public override bool CanUseSkill()
     {
         return base.CanUseSkill();
@@ -24,11 +24,11 @@ public class BlackHole_Skill : Skill
     {
         base.UseSkill();
 
-        GameObject newBlackHole = Instantiate(blackHolePrefab, player.transform.position, Quaternion.identity);
+        GameObject newBlackHole = Instantiate(blackHolePrefab,player.transform.position,Quaternion.identity);
 
-        currentBlackHole = newBlackHole.GetComponent<BlackHole_Skill_Contoller>();
+        currentBlackhole = newBlackHole.GetComponent<Blackhole_Skill_Controller>();
 
-        currentBlackHole.SetupBlackHole(maxSize, growSpeed, shrinkSpeed, amountOfAttacks, cloneCoolDown, blackHoleDuration);
+        currentBlackhole.SetupBlackhole(maxSize, growSpeed, shrinkSpeed, amountOfAttacks, cloneCooldown,blackholeDuration);
     }
 
     protected override void Start()
@@ -41,23 +41,24 @@ public class BlackHole_Skill : Skill
         base.Update();
     }
 
+
     public bool SkillCompleted()
     {
-        if (!currentBlackHole)
-        {
+        if (!currentBlackhole)
             return false;
-        }
 
-        if (currentBlackHole.playerCanExitState)
+
+        if (currentBlackhole.playerCanExitState)
         {
-            currentBlackHole = null;
+            currentBlackhole = null;
             return true;
         }
+
 
         return false;
     }
 
-    public float GetBlackHoleRadius()
+    public float GetBlackholeRadius()
     {
         return maxSize / 2;
     }

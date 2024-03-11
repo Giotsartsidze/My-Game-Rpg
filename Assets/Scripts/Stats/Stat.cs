@@ -3,22 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-
 public class Stat 
 {
-    [SerializeField] private int baseValue;
+   [SerializeField] private int baseValue;
 
-    public List<int> modifires;
-
-    public int getValue()
+    public List<int> modifiers;
+    public int GetValue()
     {
-        int finalValue = baseValue;
+        int finalValue = baseValue; 
 
-        foreach(int modifier in modifires)
+        foreach (int modifier in modifiers)
         {
             finalValue += modifier;
         }
-
 
         return finalValue;
     }
@@ -30,11 +27,11 @@ public class Stat
 
     public void AddModifier(int _modifier)
     {
-        modifires.Add(_modifier);
+        modifiers.Add(_modifier);
     }
 
     public void RemoveModifier(int _modifier)
     {
-        modifires.RemoveAt(_modifier);
+        modifiers.RemoveAt(_modifier);
     }
 }

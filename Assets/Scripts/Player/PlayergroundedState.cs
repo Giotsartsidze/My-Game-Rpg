@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayergroundedState : PlayerState
+public class PlayerGroundedState : PlayerState
 {
-    public PlayergroundedState(Player _player, PlayerStatemachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
+    public PlayerGroundedState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
     }
 
@@ -21,32 +21,34 @@ public class PlayergroundedState : PlayerState
     public override void Update()
     {
         base.Update();
+
         if (Input.GetKeyDown(KeyCode.R))
-        {
             stateMachine.ChangeState(player.blackHole);
-        }
-        if(Input.GetKeyDown(KeyCode.Mouse1) && hasNoSword()){
-            stateMachine.ChangeState(player.aimSword);
-        }
-        if(Input.GetKeyDown(KeyCode.Q)){
+
+        if (Input.GetKeyDown(KeyCode.Mouse1) && HasNoSword())
+            stateMachine.ChangeState(player.aimSowrd);
+
+        if (Input.GetKeyDown(KeyCode.Q))
             stateMachine.ChangeState(player.counterAttack);
-        }
-        if(Input.GetKeyDown(KeyCode.Mouse0)){
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
             stateMachine.ChangeState(player.primaryAttack);
-        }
-        if(!player.IsGroundDetected()){
+
+        if (!player.IsGroundDetected())
             stateMachine.ChangeState(player.airState);
-        }
-        if(Input.GetKeyDown(KeyCode.Space) && player.IsGroundDetected()){
+
+        if (Input.GetKeyDown(KeyCode.Space) && player.IsGroundDetected())
             stateMachine.ChangeState(player.jumpState);
-        }
     }
 
-    private bool hasNoSword(){
-        if(!player.sword){
+    private bool HasNoSword()
+    {
+        if (!player.sword)
+        {
             return true;
         }
-        player.sword.GetComponent<SwordSkillController>().ReturnSword();
+
+        player.sword.GetComponent<Sword_Skill_Controller>().ReturnSword();
         return false;
     }
 }

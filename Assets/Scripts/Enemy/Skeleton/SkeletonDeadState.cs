@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class SkeletonDeadState : EnemyState
 {
-    private EnemySkeleton enemy;
-    public SkeletonDeadState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName, EnemySkeleton _enemy) : base(_enemyBase, _stateMachine, _animBoolName)
+    private Enemy_Skeleton enemy;
+
+    public SkeletonDeadState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName, Enemy_Skeleton _enemy) : base(_enemyBase, _stateMachine, _animBoolName)
     {
         this.enemy = _enemy;
     }
@@ -18,16 +19,14 @@ public class SkeletonDeadState : EnemyState
         enemy.anim.speed = 0;
         enemy.cd.enabled = false;
 
-        stateTimer = .2f;
+        stateTimer = .15f;
     }
 
     public override void Update()
     {
         base.Update();
 
-        if(stateTimer > 0)
-        {
+        if (stateTimer > 0)
             rb.velocity = new Vector2(0, 10);
-        }
     }
 }
