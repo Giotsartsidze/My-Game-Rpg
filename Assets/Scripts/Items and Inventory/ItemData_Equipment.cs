@@ -13,6 +13,8 @@ public class ItemData_Equipment : itemData
 {
     public EquipmentType equipmentType;
 
+    public ItemEffect[] itemEffects;
+
     [Header("Major stats")]
     public int strength; // 1 point increase damage by 1 and crit.power by 1%
     public int agility;  // 1 point increase evasion by 1% and crit.chance by 1%
@@ -39,6 +41,13 @@ public class ItemData_Equipment : itemData
     [Header("Craft requirements")]
     public List<InventoryItem> craftingMaterials;
 
+    public void Effect(Transform _enemyPosition)
+    {
+        foreach(var item in itemEffects)
+        {
+            item.ExecuteEffect(_enemyPosition);
+        }
+    }
     public void AddModifires()
     {
         PlayerStats playerStats = PlayerManager.instance.player.GetComponent<PlayerStats>();
