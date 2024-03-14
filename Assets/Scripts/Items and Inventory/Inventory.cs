@@ -5,6 +5,8 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
 
+    public List<itemData> startingEquipment;
+
     public List<InventoryItem> equipment;
     public Dictionary<ItemData_Equipment, InventoryItem> equipmentDictionary;
 
@@ -48,6 +50,15 @@ public class Inventory : MonoBehaviour
         inventoryItemSlots = inventorySlotParent.GetComponentsInChildren<UI_itemSlot>();
         stashItemSlot = stashSlotParent.GetComponentsInChildren<UI_itemSlot>();
         equipmentSlot = equipmentSLotParent.GetComponentsInChildren<UI_Equipment_Slot>();
+        AddStartingItems();
+    }
+
+    private void AddStartingItems()
+    {
+        for (int i = 0; i < startingEquipment.Count; i++)
+        {
+            AddItem(startingEquipment[i]);
+        }
     }
 
     public void EquipItem(itemData _item)
@@ -244,5 +255,8 @@ public class Inventory : MonoBehaviour
 
         return true;
     }
+
+    public List<InventoryItem> GetEquipmentList() => equipment;
+    public List<InventoryItem> GetStashList() => stash;
     
 }
