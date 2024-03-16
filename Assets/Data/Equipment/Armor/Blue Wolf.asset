@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdc1063014133cf40b5e021bbd67ae9e, type: 3}
-  m_Name: Ice and Fire
+  m_Name: Blue Wolf
   m_EditorClassIdentifier: 
-  itemType: 0
-  itemName: 
-  icon: {fileID: 0}
+  itemType: 1
+  itemName: Blue Wolf
+  icon: {fileID: 288293509, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   dropChance: 0
-  equipmentType: 0
+  equipmentType: 1
+  itemCooldown: 0
   itemEffects: []
   strength: 0
   agility: 0

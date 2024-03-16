@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ff10dfdc12146e4683e849d4802b152, type: 3}
-  m_Name: Thunder Strike Effect
+  m_Script: {fileID: 11500000, guid: 4748623e711bf624e8afedfa211a8322, type: 3}
+  m_Name: Heal on HIt
   m_EditorClassIdentifier: 
-  thinderStrikePrefab: {fileID: 4751105785331486790, guid: d044ded866df1e345b7f71a1a8aa7c15, type: 3}
+  healPercent: 0.1

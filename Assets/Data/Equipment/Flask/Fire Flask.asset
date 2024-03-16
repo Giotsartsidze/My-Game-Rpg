@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdc1063014133cf40b5e021bbd67ae9e, type: 3}
-  m_Name: thunder claw
+  m_Name: Fire Flask
   m_EditorClassIdentifier: 
-  itemType: 1
-  itemName: thunder claw
-  icon: {fileID: 367297872, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
+  itemType: 0
+  itemName: 
+  icon: {fileID: 0}
   dropChance: 0
   equipmentType: 0
-  itemEffects:
-  - {fileID: 11400000, guid: ced189e0e8794354e8f244683665fd72, type: 2}
+  itemCooldown: 0
+  itemEffects: []
   strength: 0
   agility: 0
   intelligence: 0
   vitality: 0
-  damage: 10
+  damage: 0
   critChance: 0
   critPower: 0
   health: 0
@@ -32,5 +32,5 @@ MonoBehaviour:
   magicResistance: 0
   fireDamage: 0
   iceDamage: 0
-  lightingDamage: 5
+  lightingDamage: 0
   craftingMaterials: []
