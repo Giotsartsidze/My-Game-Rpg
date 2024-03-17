@@ -7,7 +7,7 @@ public class EnemyStats : CharacterStats
     private Enemy enemy;
     private ItemDrop myDropSystem;
 
-    [Header("Level Details")]
+    [Header("Level details")]
     [SerializeField] private int level = 1;
 
     [Range(0f, 1f)]
@@ -21,17 +21,14 @@ public class EnemyStats : CharacterStats
 
         enemy = GetComponent<Enemy>();
         myDropSystem = GetComponent<ItemDrop>();
-
     }
 
     private void ApplyLevelModifiers()
     {
-        // I can than jus remove this 4 modifiers
         Modify(strength);
         Modify(agility);
         Modify(intelligence);
         Modify(vitality);
-        // fro mg=here
 
         Modify(damage);
         Modify(critChance);
@@ -49,13 +46,14 @@ public class EnemyStats : CharacterStats
 
     private void Modify(Stat _stat)
     {
-        for(int i=0; i < level; i++)
+        for (int i = 1; i < level; i++)
         {
             float modifier = _stat.GetValue() * percantageModifier;
 
             _stat.AddModifier(Mathf.RoundToInt(modifier));
         }
     }
+
     public override void TakeDamage(int _damage)
     {
         base.TakeDamage(_damage);

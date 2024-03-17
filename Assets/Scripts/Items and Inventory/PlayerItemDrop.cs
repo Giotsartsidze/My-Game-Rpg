@@ -4,29 +4,31 @@ using UnityEngine;
 
 public class PlayerItemDrop : ItemDrop
 {
-    [Header("Players Drop")]
-    [SerializeField] private float chanceToLooseItem;
+    [Header("Player's drop")]
+    [SerializeField] private float chanceToLooseItems;
     [SerializeField] private float chanceToLooseMaterials;
 
     public override void GenerateDrop()
     {
         Inventory inventory = Inventory.instance;
-        List<InventoryItem> itemsToUnequip = new List<InventoryItem>();
-        List<InventoryItem> materialsToUnequip = new List<InventoryItem>();
 
-        foreach(InventoryItem item in inventory.GetEquipmentList())
+        List<InventoryItem> itemsToUnequip = new List<InventoryItem>();
+        List<InventoryItem> materialsToLoose = new List<InventoryItem>();
+
+        foreach (InventoryItem item in inventory.GetEquipmentList())
         {
-            if(Random.Range(0,100)<= chanceToLooseItem)
+            if (Random.Range(0, 100) <= chanceToLooseItems)
             {
                 DropItem(item.data);
                 itemsToUnequip.Add(item);
             }
         }
 
-        for(int i =0; i < itemsToUnequip.Count; i++)
+        for (int i = 0; i < itemsToUnequip.Count; i++)
         {
-            inventory.UnequipItem(itemsToUnequip[i].data as ItemData_Equipment);
+            inventory.UnequipItem(itemsToUnequip[i].data as ItemData_Equipment); 
         }
+
 
 
         foreach (InventoryItem item in inventory.GetStashList())
@@ -34,13 +36,13 @@ public class PlayerItemDrop : ItemDrop
             if (Random.Range(0, 100) <= chanceToLooseMaterials)
             {
                 DropItem(item.data);
-                materialsToUnequip.Add(item);
+                materialsToLoose.Add(item);
             }
         }
 
-        for (int i = 0; i < itemsToUnequip.Count; i++)
+        for (int i = 0; i < materialsToLoose.Count; i++)
         {
-            inventory.RemoveItem(materialsToUnequip[i].data );
+            inventory.RemoveItem(materialsToLoose[i].data);
         }
     }
 }

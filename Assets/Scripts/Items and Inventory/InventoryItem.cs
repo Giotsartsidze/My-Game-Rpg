@@ -3,16 +3,15 @@ using System;
 [Serializable]
 public class InventoryItem
 {
-    public itemData data;
+    public ItemData data;
     public int stackSize;
-
-    public InventoryItem(itemData _newItemData)
+    public InventoryItem(ItemData _newItemData)
     {
         data = _newItemData;
         AddStack();
     }
 
-    public void AddStack() => stackSize++;
 
+    public void AddStack() => stackSize++;
     public void RemoveStack() => stackSize--;
 }

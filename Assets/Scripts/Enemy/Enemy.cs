@@ -6,6 +6,7 @@ public class Enemy : Entity
 {
     [SerializeField] protected LayerMask whatIsPlayer;
 
+
     [Header("Stunned info")]
     public float stunDuration;
     public Vector2 stunDirection;
@@ -24,6 +25,7 @@ public class Enemy : Entity
     [HideInInspector] public float lastTimeAttacked;
 
     public EnemyStateMachine stateMachine { get; private set; }
+    private Player player;
     public string lastAnimBoolName {  get; private set; }
     protected override void Awake()
     {
@@ -74,9 +76,9 @@ public class Enemy : Entity
         }
     }
 
-    public virtual void FreezeTimeFor(float _duration) => StartCoroutine(FreezeTimeCoroutine(_duration));
+    public virtual void FreezeTimeFor(float _duration) => StartCoroutine(FreezeTimerCoroutine(_duration));
 
-    protected virtual IEnumerator FreezeTimeCoroutine(float _seconds)
+    protected virtual IEnumerator FreezeTimerCoroutine(float _seconds)
     {
         FreezeTime(true);
 

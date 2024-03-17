@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class Sword_Skill_Controller : MonoBehaviour
@@ -94,6 +95,9 @@ public class Sword_Skill_Controller : MonoBehaviour
         //rb.isKinematic = false;
         transform.parent = null;
         isReturning = true;
+
+
+        // sword.skill.setcooldown;
     }
 
     private void Update()
@@ -127,7 +131,8 @@ public class Sword_Skill_Controller : MonoBehaviour
             {
                 spinTimer -= Time.deltaTime;
 
-                // transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + 1, transform.position.y), 2.4f * Time.deltaTime);
+
+               //transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + 1 , transform.position.y), 2.4f * Time.deltaTime);
 
                 if (spinTimer < 0)
                 {
@@ -209,15 +214,22 @@ public class Sword_Skill_Controller : MonoBehaviour
 
     private void SwordSkillDamage(Enemy enemy)
     {
-        player.stats.DoDamage(enemy.GetComponent<CharacterStats>());
-        enemy.FreezeTimeFor(freezeTimeDuration);
+        EnemyStats enemyStats = enemy.GetComponent<EnemyStats>();
+
+        player.stats.DoDamage(enemyStats);
+
+        if(player.skill.sword.timeStopUnlocked)
+            enemy.FreezeTimeFor(freezeTimeDuration);
+
+        if (player.skill.sword.vulnerableUnlocked)
+            enemyStats.MakeVulnerableFor(freezeTimeDuration);
+            
+
 
         ItemData_Equipment equipedAmulet = Inventory.instance.GetEquipment(EquipmentType.Amulet);
 
         if (equipedAmulet != null)
-        {
             equipedAmulet.Effect(enemy.transform);
-        }
     }
 
     private void SetupTargetsForBounce(Collider2D collision)

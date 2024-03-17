@@ -9,17 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc1063014133cf40b5e021bbd67ae9e, type: 3}
-  m_Name: Healing Flask
+  m_Script: {fileID: 11500000, guid: 590ef18be3394f74b880d82fac385463, type: 3}
+  m_Name: Healing flask
   m_EditorClassIdentifier: 
   itemType: 1
-  itemName: Healing  Flask
-  icon: {fileID: -410334530, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
+  itemName: Healing flask
+  itemIcon: {fileID: -410334530, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   dropChance: 0
   equipmentType: 3
-  itemCooldown: 5
+  itemCooldown: 15
   itemEffects:
-  - {fileID: 11400000, guid: deb8099850a81324da67ed0571deaa34, type: 2}
+  - {fileID: 11400000, guid: 1106161ba039dfb408f7a4587beb43a1, type: 2}
+  itemEffectDescription: Heals for 30% of health. Cooldown 15 sec.
   strength: 0
   agility: 0
   intelligence: 0

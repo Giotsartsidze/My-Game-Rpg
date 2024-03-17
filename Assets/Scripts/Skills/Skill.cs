@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
-    [SerializeField] protected float cooldown;
+    public float cooldown;
     protected float cooldownTimer;
 
     protected Player player;
@@ -31,6 +31,8 @@ public class Skill : MonoBehaviour
             return true;
         }
 
+
+        Debug.Log("Skill is on cooldown");
         return false;
     }
 
