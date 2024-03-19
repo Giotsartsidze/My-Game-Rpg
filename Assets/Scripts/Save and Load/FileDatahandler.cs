@@ -9,10 +9,14 @@ public class FileDatahandler
     private string dataDirPath = "";
     private string dataFileName = "";
 
-    public FileDatahandler(string _dataDirPath, string _dataFileName)
+    private bool encryptData = false;
+    private string codeWord = "tsartsi";
+
+    public FileDatahandler(string _dataDirPath, string _dataFileName, bool _encryptData)
     {
         dataDirPath = _dataDirPath;
         dataFileName = _dataFileName;
+        encryptData = _encryptData;
     }
 
     public void Save(Game_Data _data)
@@ -24,6 +28,11 @@ public class FileDatahandler
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
 
             string dataToStore = JsonUtility.ToJson(_data, true);
+
+            if (encryptData)
+            {
+                dataToStore = EncryptDecrypt(dataToStore);
+            }
 
             using(FileStream stream = new FileStream(fullPath, FileMode.Create))
             {
@@ -57,6 +66,10 @@ public class FileDatahandler
                         dataToLoad = reader.ReadToEnd();
                     }
                 }
+                if (encryptData)
+                {
+                    dataToLoad = EncryptDecrypt(dataToLoad);
+                }
                 loadData = JsonUtility.FromJson<Game_Data>(dataToLoad);
             }
             catch(Exception e)
@@ -65,5 +78,26 @@ public class FileDatahandler
             }
         }
         return loadData;
+    }
+
+    public void Delete()
+    {
+        string fullPath = Path.Combine(dataDirPath, dataFileName);
+        if (File.Exists(fullPath))
+        {
+            File.Delete(fullPath);
+        }
+    }
+
+    private string EncryptDecrypt(string _data)
+    {
+        string modifiedData = "";
+
+        for(int i = 0; i < _data.Length; i++)
+        {
+            modifiedData += (char)(_data[i] ^ codeWord[i % codeWord.Length]);
+        }
+
+        return modifiedData;
     }
 }
