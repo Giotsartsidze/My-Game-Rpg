@@ -27,6 +27,7 @@ public class UI : MonoBehaviour
     private void Awake()
     {
         SwitchTo(skillTreeUI); // we need this to assign events on skill tree slots before we asssign events on skill scripts
+        fadeScreen.gameObject.SetActive(true);
     }
 
     void Start()
@@ -85,7 +86,7 @@ public class UI : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            if (transform.GetChild(i).gameObject.activeSelf)
+            if (transform.GetChild(i).gameObject.activeSelf && transform.GetChild(i).GetComponent<UI_FadeScreen>() == null)
                 return;
         }
 
