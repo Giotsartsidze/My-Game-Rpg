@@ -169,5 +169,6 @@ public class Player : Entity
         base.Die();
 
         stateMachine.ChangeState(deadState);
+        AudioManager.instance.PlaySFX(11);
     }
 }
