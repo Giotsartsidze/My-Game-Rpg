@@ -87,6 +87,11 @@ public class Player : Entity
 
     protected override void Update()
     {
+
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
         base.Update();
 
         stateMachine.currentState.Update();
@@ -170,5 +175,9 @@ public class Player : Entity
 
         stateMachine.ChangeState(deadState);
         AudioManager.instance.PlaySFX(11, null);
+    }
+    protected override void SetupZeroKnockbackOnPower()
+    {
+        knockBackPower = new Vector2(0, 0);
     }
 }

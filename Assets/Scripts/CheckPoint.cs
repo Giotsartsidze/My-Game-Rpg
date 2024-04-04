@@ -28,8 +28,11 @@ public class CheckPoint : MonoBehaviour
 
     public void ActivateCheckPoint()
     {
+        if(activationStatus == false)
+            AudioManager.instance.PlaySFX(5, transform); // i have bug here every time i collide with checkpoints it sounds 
+        
+        
         activationStatus = true;
         anim.SetBool("active", true);
-        AudioManager.instance.PlaySFX(5, null); // i have bug here every time i collide with checkpoints it sounds 
     }
 }

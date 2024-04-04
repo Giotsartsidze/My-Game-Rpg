@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
     public bool playBGM;
     private int bgmIndex;
 
+    private bool canPlaySFX;
     private void Awake()
     {
         if (instance == null)
@@ -25,6 +26,8 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Invoke("AllowSFX", 1f);
     }
 
     private void Update()
@@ -40,8 +43,12 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(int _sfxIndex, Transform _source)
     {
-        if (sfx[_sfxIndex].isPlaying)
+        // if (sfx[_sfxIndex].isPlaying)
+        //    return;
+
+        if (canPlaySFX == false)
             return;
+
         if(_source != null && Vector2.Distance(PlayerManager.instance.player.transform.position, _source.position)> sfxMinimumDistance)
         {
             return;
@@ -55,6 +62,25 @@ public class AudioManager : MonoBehaviour
     }
 
     public void StopSFX(int _index) => sfx[_index].Stop();
+
+    public void StopSFXWithTime(int _index) => StartCoroutine(DecreaseVolume(sfx[_index]));
+    private IEnumerator DecreaseVolume(AudioSource _audio)
+    {
+        float defaultVolume = _audio.volume;
+
+        while(_audio.volume > .1f)
+        {
+            _audio.volume -= _audio.volume * .2f;
+            yield return new WaitForSeconds(.25f);
+
+            if(_audio.volume <= .1f)
+            {
+                _audio.Stop();
+                _audio.volume = defaultVolume;
+                break;
+            }
+        }
+    }
 
     public void PlayRandomBGM()
     {
@@ -77,4 +103,6 @@ public class AudioManager : MonoBehaviour
             bgm[i].Stop();
         }
     }
+
+    private void AllowSFX() => canPlaySFX = true;
 }
