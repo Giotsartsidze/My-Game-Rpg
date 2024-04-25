@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour ,ISaveManager
+public class Inventory : MonoBehaviour , ISaveManager
 {
     public static Inventory instance;
 
@@ -38,7 +38,8 @@ public class Inventory : MonoBehaviour ,ISaveManager
     public float flaskCooldown { get; private set; }
     private float armorCooldown;
 
-    [Header("Data Base")]
+    [Header("Data base")]
+    public List<ItemData> itemDataBase;
     public List<InventoryItem> loadedItems;
     public List<ItemData_Equipment> loadedEquipment;
     private void Awake()
@@ -60,6 +61,7 @@ public class Inventory : MonoBehaviour ,ISaveManager
         equipment = new List<InventoryItem>();
         equipmentDictionary = new Dictionary<ItemData_Equipment, InventoryItem>();
 
+
         inventoryItemSlot = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();
         stashItemSlot = stashSlotParent.GetComponentsInChildren<UI_ItemSlot>();
         equipmentSlot = equpmentSlotParent.GetComponentsInChildren<UI_EquipmentSlot>();
@@ -70,18 +72,16 @@ public class Inventory : MonoBehaviour ,ISaveManager
 
     private void AddStartingItems()
     {
-
         foreach (ItemData_Equipment item in loadedEquipment)
         {
             EquipItem(item);
         }
-
-
+        
         if (loadedItems.Count > 0)
         {
-            foreach(InventoryItem item in loadedItems)
+            foreach (InventoryItem item in loadedItems)
             {
-                for(int i = 0; i < item.stackSize; i++)
+                for (int i = 0; i < item.stackSize; i++)
                 {
                     AddItem(item.data);
                 }
@@ -268,7 +268,7 @@ public class Inventory : MonoBehaviour ,ISaveManager
             {
                 if (stashValue.stackSize < _requiredMaterials[i].stackSize)
                 {
-                    Debug.Log("not enough materials");
+                    Debug.Log("Not enough materials");
                     return false;
                 }
                 else
@@ -279,7 +279,7 @@ public class Inventory : MonoBehaviour ,ISaveManager
             }
             else
             {
-                Debug.Log("not enough materials");
+                Debug.Log("Materials not found");
                 return false;
             }
         }
@@ -347,13 +347,13 @@ public class Inventory : MonoBehaviour ,ISaveManager
         return false;
     }
 
-    public void LoadData(Game_Data _data)
+    public void LoadData(GameData _data)
     {
-        foreach(KeyValuePair<string, int> pair in _data.inventory)
+        foreach (KeyValuePair<string, int> pair in _data.inventory)
         {
-            foreach(var item in GetItemDataBase())
+            foreach (var item in itemDataBase)
             {
-                if(item != null && item.itemId == pair.Key)
+                if (item != null && item.itemId == pair.Key)
                 {
                     InventoryItem itemToLoad = new InventoryItem(item);
                     itemToLoad.stackSize = pair.Value;
@@ -363,24 +363,25 @@ public class Inventory : MonoBehaviour ,ISaveManager
             }
         }
 
-        foreach(string loadedItemId in _data.equipmentId)
+        foreach (string loadedItemId in _data.equipmentId)
         {
-            foreach(var item in GetItemDataBase())
+            foreach (var item in itemDataBase)
             {
-                if(item != null && loadedItemId == item.itemId)
+                if (item != null && loadedItemId == item.itemId)
                 {
                     loadedEquipment.Add(item as ItemData_Equipment);
                 }
             }
         }
+
     }
 
-    public void SaveData(ref Game_Data _data)
+    public void SaveData(ref GameData _data)
     {
         _data.inventory.Clear();
         _data.equipmentId.Clear();
 
-        foreach(KeyValuePair<ItemData, InventoryItem> pair in inventoryDictianory)
+        foreach (KeyValuePair<ItemData, InventoryItem> pair in inventoryDictianory)
         {
             _data.inventory.Add(pair.Key.itemId, pair.Value.stackSize);
         }
@@ -396,18 +397,27 @@ public class Inventory : MonoBehaviour ,ISaveManager
         }
     }
 
-    private List<ItemData> GetItemDataBase() 
-    { 
-        List<ItemData> itemDataBase = new List<ItemData>();
-        string[] assetNames = AssetDatabase.FindAssets("", new[] { "Assets/Data/Items" });
 
-        foreach(string SOname in assetNames)
+
+#if UNITY_EDITOR
+    [ContextMenu("Fill up item data base")]
+    private void FillUpItemDataBase() => itemDataBase = new List<ItemData>(GetItemDataBase());
+
+    private List<ItemData> GetItemDataBase()
+    {
+        List<ItemData> itemDataBase = new List<ItemData>();
+        string[] assetNames = AssetDatabase.FindAssets("", new[] { "Assets/Data/Items" }); 
+
+        foreach (string SOName in assetNames)
         {
-            var SOpath = AssetDatabase.GUIDToAssetPath(SOname);
+            var SOpath = AssetDatabase.GUIDToAssetPath(SOName);
             var itemData = AssetDatabase.LoadAssetAtPath<ItemData>(SOpath);
             itemDataBase.Add(itemData);
         }
 
         return itemDataBase;
     }
+#endif
+    
+
 }

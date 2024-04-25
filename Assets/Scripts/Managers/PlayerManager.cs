@@ -15,6 +15,11 @@ public class PlayerManager : MonoBehaviour , ISaveManager
         else
             instance = this;
     }
+
+    private void Start()
+    {
+        currency += 458;
+    }
     public bool HaveEnoughMoney(int _price)
     {
         if (_price > currency)
@@ -29,13 +34,13 @@ public class PlayerManager : MonoBehaviour , ISaveManager
 
     public int GetCurrency() => currency;
 
-    public void LoadData(Game_Data _data)
+    public void LoadData(GameData _data)
     {
         this.currency = _data.currency;
     }
 
-    public void SaveData(ref Game_Data _data)
+    public void SaveData(ref GameData _data)
     {
-      _data.currency = this.currency ;
+        _data.currency = this.currency;
     }
 }

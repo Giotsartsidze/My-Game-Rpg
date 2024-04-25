@@ -22,6 +22,7 @@ public class PlayerStats : CharacterStats
     {
         base.Die();
         player.Die();
+
         GameManager.instance.lostCurrencyAmount = PlayerManager.instance.currency;
         PlayerManager.instance.currency = 0;
 
@@ -32,12 +33,18 @@ public class PlayerStats : CharacterStats
     {
         base.DecreaseHealthBy(_damage);
 
-        if(_damage > GetMaxHealthValue() * .3f)
-        {
-            player.SetupKnockBackPower(new Vector2(10, 6));
+        if (isDead)
+            return;
 
-            int randomSound = Random.Range(31, 33);
+        if (_damage > GetMaxHealthValue() * .3f )
+        {
+            player.SetupKnockbackPower(new Vector2(10,6));
+            player.fx.ScreenShake(player.fx.shakeHighDamage);
+
+
+            int randomSound = Random.Range(34, 35);
             AudioManager.instance.PlaySFX(randomSound, null);
+            
         }
 
         ItemData_Equipment currentArmor = Inventory.instance.GetEquipment(EquipmentType.Armor);

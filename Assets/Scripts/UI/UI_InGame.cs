@@ -16,7 +16,9 @@ public class UI_InGame : MonoBehaviour
     [SerializeField] private Image flaskImage;
 
     private SkillManager skills;
-    [Header("Souls Info")]
+
+
+    [Header("Souls info")]
     [SerializeField] private TextMeshProUGUI currentSouls;
     [SerializeField] private float soulsAmount;
     [SerializeField] private float increaseRate = 100;
@@ -66,13 +68,9 @@ public class UI_InGame : MonoBehaviour
     private void UpdateSoulsUI()
     {
         if (soulsAmount < PlayerManager.instance.GetCurrency())
-        {
             soulsAmount += Time.deltaTime * increaseRate;
-        }
         else
-        {
             soulsAmount = PlayerManager.instance.GetCurrency();
-        }
 
 
         currentSouls.text = ((int)soulsAmount).ToString();

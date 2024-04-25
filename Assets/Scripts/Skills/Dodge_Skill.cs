@@ -29,6 +29,7 @@ public class Dodge_Skill : Skill
         UnlockDodge();
         UnlockMirageDodge();
     }
+
     private void UnlockDodge()
     {
         if (unlockDodgeButton.unlocked && !dodgeUnlocked)

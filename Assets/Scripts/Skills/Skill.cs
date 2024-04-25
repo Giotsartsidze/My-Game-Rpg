@@ -15,12 +15,14 @@ public class Skill : MonoBehaviour
         player = PlayerManager.instance.player;
 
         CheckUnlock();
+        
     }
 
     protected virtual void Update()
     {
         cooldownTimer -= Time.deltaTime;
     }
+
 
     protected virtual void CheckUnlock()
     {
@@ -35,8 +37,7 @@ public class Skill : MonoBehaviour
             return true;
         }
 
-
-        Debug.Log("Skill is on cooldown");
+        player.fx.CreatePopUpText("Cooldown");
         return false;
     }
 

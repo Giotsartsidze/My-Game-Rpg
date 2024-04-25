@@ -131,8 +131,8 @@ public class Sword_Skill : Skill
     {
         UnlockSword();
         UnlockBounceSword();
-        UnlockPierceSword();
         UnlockSpinSword();
+        UnlockPierceSword();
         UnlockTimeStop();
         UnlockVulnurable();
     }

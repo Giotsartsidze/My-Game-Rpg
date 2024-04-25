@@ -45,6 +45,7 @@ public class ItemData_Equipment : ItemData
 
 
     [Header("Craft requirements")]
+    
     public List<InventoryItem> craftingMaterials;
 
     private int descriptionLength;
@@ -130,6 +131,9 @@ public class ItemData_Equipment : ItemData
         AddItemDescription(lightingDamage, "Lighting dmg. ");
 
 
+
+
+
         for (int i = 0; i < itemEffects.Length; i++)
         {
             if (itemEffects[i].effectDescription.Length > 0)
@@ -168,8 +172,6 @@ public class ItemData_Equipment : ItemData
                 sb.Append("+ " + _value + " " + _name);
 
             descriptionLength++;
-        }   
-
-       
+        }       
     }
 }

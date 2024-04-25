@@ -2,52 +2,60 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
-public class SaveManager : MonoBehaviour
+public class SaveManager : MonoBehaviour 
 {
     public static SaveManager instance;
+
     [SerializeField] private string fileName;
     [SerializeField] private bool encryptData;
+    private GameData gameData;
+    [SerializeField] private List<ISaveManager> saveManagers;
+    private FileDataHandler dataHandler;
 
-    private Game_Data gameData;
-    private List<ISaveManager> saveManagers;
-    private FileDatahandler datahandler;
 
-    [ContextMenu("delete save file")]
+    [ContextMenu("Delete save file")]
     public void DeleteSavedData()
     {
-        datahandler = new FileDatahandler(Application.persistentDataPath, fileName, encryptData);
-        datahandler.Delete();
+        dataHandler = new FileDataHandler(Application.persistentDataPath, fileName,encryptData);
+        dataHandler.Delete();
+
     }
+
     private void Awake()
     {
-        if(instance != null)
-        {
+        if (instance != null)
             Destroy(instance.gameObject);
-        }
         else
-        {
             instance = this;
-        }
     }
+
 
     private void Start()
     {
-        datahandler = new FileDatahandler(Application.persistentDataPath, fileName, encryptData);
+        dataHandler = new FileDataHandler(Application.persistentDataPath, fileName,encryptData);
         saveManagers = FindAllSaveManagers();
+
+        //Invoke("LoadGame", .05f);
+        
         LoadGame();
+        
+        
     }
+
     public void NewGame()
     {
-        gameData = new Game_Data();
+        gameData = new GameData();
     }
 
     public void LoadGame()
     {
-        gameData = datahandler.Load();
+        gameData = dataHandler.Load();
 
-        if(this.gameData == null)
+        if (this.gameData == null)
         {
+            Debug.Log("No saved data found!");
             NewGame();
         }
 
@@ -55,19 +63,20 @@ public class SaveManager : MonoBehaviour
         {
             saveManager.LoadData(gameData);
         }
-
     }
 
     public void SaveGame()
     {
+
         foreach(ISaveManager saveManager in saveManagers)
         {
             saveManager.SaveData(ref gameData);
         }
-        datahandler.Save(gameData);
+
+        dataHandler.Save(gameData);
     }
 
-    public void OnApplicationQuit()
+    private void OnApplicationQuit()
     {
         SaveGame();
     }
@@ -81,7 +90,7 @@ public class SaveManager : MonoBehaviour
 
     public bool HasSavedData()
     {
-        if(datahandler.Load() != null)
+        if (dataHandler.Load() != null)
         {
             return true;
         }

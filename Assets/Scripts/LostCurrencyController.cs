@@ -8,9 +8,10 @@ public class LostCurrencyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<Player>() != null)
+        if (collision.GetComponent<Player>() != null)
         {
-            PlayerManager.instance.currency = currency;
+            Debug.Log("currency picked up");
+            PlayerManager.instance.currency += currency;
             Destroy(this.gameObject);
         }
     }

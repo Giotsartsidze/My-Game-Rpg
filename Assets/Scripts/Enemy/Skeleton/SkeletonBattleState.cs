@@ -22,6 +22,8 @@ public class SkeletonBattleState : EnemyState
 
         if (player.GetComponent<PlayerStats>().isDead)
             stateMachine.ChangeState(enemy.moveState);
+
+        
     }
 
     public override void Update()
@@ -43,9 +45,6 @@ public class SkeletonBattleState : EnemyState
             if (stateTimer < 0 || Vector2.Distance(player.transform.position, enemy.transform.position) > 7)
                 stateMachine.ChangeState(enemy.idleState);
         }
-
-
-
 
 
 

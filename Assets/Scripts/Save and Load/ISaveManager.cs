@@ -4,7 +4,6 @@ using UnityEngine;
 
 public interface ISaveManager 
 {
-    void LoadData(Game_Data _data);
-
-    void SaveData(ref Game_Data _data);
+    void LoadData(GameData _data);
+    void SaveData(ref GameData _data);
 }

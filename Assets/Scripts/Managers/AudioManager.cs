@@ -11,29 +11,24 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource[] bgm;
 
 
-    public bool playBGM;
+    public bool playBgm;
     private int bgmIndex;
 
     private bool canPlaySFX;
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject); // Optional if AudioManager should persist between scenes
-        }
+        if (instance != null)
+            Destroy(instance.gameObject);
         else
-        {
-            Destroy(gameObject);
-        }
+            instance = this;
 
         Invoke("AllowSFX", 1f);
     }
 
     private void Update()
     {
-        if (!playBGM)
-            StopBGM();
+        if (!playBgm)
+            StopAllBGM();
         else
         {
             if (!bgm[bgmIndex].isPlaying)
@@ -41,22 +36,25 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    
+
     public void PlaySFX(int _sfxIndex, Transform _source)
     {
-        // if (sfx[_sfxIndex].isPlaying)
+        //if (sfx[_sfxIndex].isPlaying)
         //    return;
 
         if (canPlaySFX == false)
             return;
 
-        if(_source != null && Vector2.Distance(PlayerManager.instance.player.transform.position, _source.position)> sfxMinimumDistance)
-        {
-            return;
-        }
 
-        if(_sfxIndex < sfx.Length)
+        if (_source != null && Vector2.Distance(PlayerManager.instance.player.transform.position, _source.position) > sfxMinimumDistance)
+            return;
+
+
+        if (_sfxIndex < sfx.Length)
         {
-            sfx[_sfxIndex].pitch = Random.Range(.75f, 1.1f);
+
+            sfx[_sfxIndex].pitch = Random.Range(.85f, 1.1f);
             sfx[_sfxIndex].Play();
         }
     }
@@ -64,22 +62,24 @@ public class AudioManager : MonoBehaviour
     public void StopSFX(int _index) => sfx[_index].Stop();
 
     public void StopSFXWithTime(int _index) => StartCoroutine(DecreaseVolume(sfx[_index]));
+
     private IEnumerator DecreaseVolume(AudioSource _audio)
     {
         float defaultVolume = _audio.volume;
 
-        while(_audio.volume > .1f)
+        while (_audio.volume > .1f)
         {
             _audio.volume -= _audio.volume * .2f;
-            yield return new WaitForSeconds(.25f);
+            yield return new WaitForSeconds(.6f);
 
-            if(_audio.volume <= .1f)
+            if (_audio.volume <= .1f)
             {
                 _audio.Stop();
                 _audio.volume = defaultVolume;
                 break;
             }
         }
+
     }
 
     public void PlayRandomBGM()
@@ -87,16 +87,16 @@ public class AudioManager : MonoBehaviour
         bgmIndex = Random.Range(0, bgm.Length);
         PlayBGM(bgmIndex);
     }
+
     public void PlayBGM(int _bgmIndex)
     {
-
         bgmIndex = _bgmIndex;
-        StopBGM();
 
+        StopAllBGM();
         bgm[bgmIndex].Play();
     }
 
-    public void StopBGM()
+    public void StopAllBGM()
     {
         for (int i = 0; i < bgm.Length; i++)
         {

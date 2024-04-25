@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +17,9 @@ public class ItemDrop : MonoBehaviour
         for (int i = 0; i < possibleDrop.Length; i++)
         {
             if (Random.Range(0, 100) <= possibleDrop[i].dropChance)
+            {
                 dropList.Add(possibleDrop[i]);
+            }
         }
 
 
@@ -27,11 +28,13 @@ public class ItemDrop : MonoBehaviour
             if (dropList.Count <= 0)
                 return;
 
-            ItemData randomItem = dropList[Random.Range(0,dropList.Count - 1)];
+            ItemData randomItem = dropList[Random.Range(0, dropList.Count)];
 
             dropList.Remove(randomItem);
             DropItem(randomItem);
+
         }
+
     }
 
 

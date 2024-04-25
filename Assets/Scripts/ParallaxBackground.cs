@@ -2,35 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParallaxBackground : MonoBehaviour
+namespace girogi1
 {
-    private GameObject cam;
-
-    [SerializeField] private float parallaxEffect;
-
-    private float xPosition;
-    private float length;
-
-    void Start()
+    public class ParallaxBackground : MonoBehaviour
     {
-        cam = GameObject.Find("Main Camera");
+        private GameObject cam;
 
-        length = GetComponent<SpriteRenderer>().bounds.size.x;
-        xPosition = transform.position.x;
-    }
+        [SerializeField] private float parallaxEffect;
 
-    void Update()
-    {
-        float distanceMoved = cam.transform.position.x * (1 - parallaxEffect);
-        float distanceToMove = cam.transform.position.x * parallaxEffect;
+        private float xPosition;
+        private float length;
 
-        transform.position = new Vector3(xPosition + distanceToMove, transform.position.y);
+        void Start()
+        {
+            cam = GameObject.Find("Main Camera");
+
+            length = GetComponent<SpriteRenderer>().bounds.size.x;
+            xPosition = transform.position.x;
+        }
+
+        void Update()
+        {
+            float distanceMoved = cam.transform.position.x * (1 - parallaxEffect);
+            float distanceToMove = cam.transform.position.x * parallaxEffect;
+
+            transform.position = new Vector3(xPosition + distanceToMove, transform.position.y);
 
 
-        if (distanceMoved > xPosition + length)
-            xPosition = xPosition + length;
-        else if (distanceMoved < xPosition - length)
-            xPosition = xPosition - length;
-
+            if (distanceMoved > xPosition + length)
+                xPosition = xPosition + length;
+            else if (distanceMoved < xPosition - length)
+                xPosition = xPosition - length;
+        }
     }
 }

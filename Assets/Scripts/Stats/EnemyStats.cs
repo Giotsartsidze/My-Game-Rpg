@@ -8,7 +8,6 @@ public class EnemyStats : CharacterStats
     private ItemDrop myDropSystem;
     public Stat soulsDropAmount;
 
-
     [Header("Level details")]
     [SerializeField] private int level = 1;
 
@@ -67,10 +66,14 @@ public class EnemyStats : CharacterStats
     protected override void Die()
     {
         base.Die();
+
+        myDropSystem.GenerateDrop();
+
+
         enemy.Die();
 
         PlayerManager.instance.currency += soulsDropAmount.GetValue();
-        myDropSystem.GenerateDrop();
+
 
         Destroy(gameObject, 5f);
     }

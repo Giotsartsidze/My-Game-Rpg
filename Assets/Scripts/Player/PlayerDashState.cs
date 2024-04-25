@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerDashState : PlayerState
 {
+
+
     public PlayerDashState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
     }
@@ -13,11 +15,10 @@ public class PlayerDashState : PlayerState
         base.Enter();
 
         player.skill.dash.CloneOnDash();
-
         stateTimer = player.dashDuration;
 
-        player.stats.MakeInvicible(true);
-        
+        player.stats.MakeInvincible(true);
+
     }
 
     public override void Exit()
@@ -27,12 +28,18 @@ public class PlayerDashState : PlayerState
         player.skill.dash.CloneOnArrival();
         player.SetVelocity(0, rb.velocity.y);
 
-        player.stats.MakeInvicible(false);
+        player.stats.MakeInvincible(false);
     }
+
+
+
+
+
 
     public override void Update()
     {
         base.Update();
+        
 
         if (!player.IsGroundDetected() && player.IsWallDetected())
             stateMachine.ChangeState(player.wallSlide);
@@ -41,7 +48,7 @@ public class PlayerDashState : PlayerState
 
         if (stateTimer < 0)
             stateMachine.ChangeState(player.idleState);
-        
 
+        player.fx.CreateAfterImage();
     }
 }
