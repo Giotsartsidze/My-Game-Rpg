@@ -4846,7 +4846,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.000030517578, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5083,7 +5083,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1290535682618644414
 Transform:
   m_ObjectHideFlags: 0
@@ -5179,7 +5179,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   maxHealth:
-    baseValue: 500
+    baseValue: 1500
     modifiers: 
   armor:
     baseValue: 0
@@ -5203,7 +5203,7 @@ MonoBehaviour:
   isChilled: 0
   isShocked: 0
   ailmentsDuration: 4
-  shockStrikePrefab: {fileID: 0}
+  shockStrikePrefab: {fileID: 4158689088258206225, guid: 90919e9c918fc84499a3a88be8033ade, type: 3}
   currentHealth: 0
   soulsDropAmount:
     baseValue: 0
@@ -5251,8 +5251,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d919b49c547184da9b10d7bfd2876f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possibleItemDrop: 0
-  possibleDrop: []
+  maxItemsToDrop: 0
+  itemPool: []
   dropPrefab: {fileID: 8730514117533583190, guid: 7aaa3324c1c4b054ebebaafe3343bf25, type: 3}
 --- !u!114 &1290535682618644356
 MonoBehaviour:
@@ -5296,7 +5296,7 @@ MonoBehaviour:
   bossFightBegun: 0
   spellPrefab: {fileID: 1212147843073526107, guid: b1bbb11d99cd26245b90390736d31ca5, type: 3}
   amountOfSpells: 5
-  spellCooldown: 2
+  spellCooldown: 0.8
   lastTimeCast: 0
   spellStateCooldown: 10
   spellOffset: {x: 3, y: 3}
@@ -15130,6 +15130,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: -1768169261
   m_SortingOrder: 19
@@ -15292,6 +15293,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1290535683279904734
 MonoBehaviour:
   m_ObjectHideFlags: 0

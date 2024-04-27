@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5413061282323127983}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.124, z: 0}
+  m_LocalPosition: {x: 0.244, y: -0.111, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -602,6 +602,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: -1768169261
   m_SortingOrder: 19
@@ -886,15 +887,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d919b49c547184da9b10d7bfd2876f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possibleItemDrop: 10
-  possibleDrop:
+  maxItemsToDrop: 3
+  itemPool:
+  - {fileID: 11400000, guid: 9209f5c03870ad140b30358835f156bb, type: 2}
+  - {fileID: 11400000, guid: 69369925ed773dd4f904c6f9ad97e8a1, type: 2}
   - {fileID: 11400000, guid: b1342fd16e2c376479833731e2df12f3, type: 2}
-  - {fileID: 11400000, guid: 6835c34bd80fc9c468d2f549f4b6220a, type: 2}
-  - {fileID: 11400000, guid: d8f58e18c1da00143accd968a6c18188, type: 2}
-  - {fileID: 11400000, guid: 7ff875b0438473344864b67d284e3630, type: 2}
-  - {fileID: 11400000, guid: 5ece859a2341cf24880a2aed82b76148, type: 2}
-  - {fileID: 11400000, guid: 55da85115cf167c4a877b0b12db35657, type: 2}
-  - {fileID: 11400000, guid: a6db18dbbf7476d4c82b3588f2b89f75, type: 2}
+  - {fileID: 11400000, guid: 9337930988e275044b8e74fa4ca51510, type: 2}
+  - {fileID: 11400000, guid: 0dd5b227fb7b62541b0fbccda677392d, type: 2}
   dropPrefab: {fileID: 8730514117533583190, guid: 7aaa3324c1c4b054ebebaafe3343bf25, type: 3}
 --- !u!1 &5413061283799475925
 GameObject:
