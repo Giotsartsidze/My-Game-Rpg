@@ -90,7 +90,7 @@ public class Enemy_DeathBringer : Enemy
 
         if (!GroundBelow() || SomethingIsAround())
         {
-            //Debug.Log("Looking for new position");
+            Debug.Log("Looking for new position");
             FindPosition();
         }
     }

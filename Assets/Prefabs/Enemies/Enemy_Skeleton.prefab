@@ -348,7 +348,7 @@ SpriteRenderer:
   m_SortingLayerID: -1768169261
   m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: -85727878, guid: 687df074731fbf744b668d2275dbb675, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ce1d3f14528a97a4c98697eb47990a84, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -891,7 +891,7 @@ MonoBehaviour:
   itemPool:
   - {fileID: 11400000, guid: 9209f5c03870ad140b30358835f156bb, type: 2}
   - {fileID: 11400000, guid: 69369925ed773dd4f904c6f9ad97e8a1, type: 2}
-  - {fileID: 11400000, guid: b1342fd16e2c376479833731e2df12f3, type: 2}
+  - {fileID: 11400000, guid: 6835c34bd80fc9c468d2f549f4b6220a, type: 2}
   - {fileID: 11400000, guid: 9337930988e275044b8e74fa4ca51510, type: 2}
   - {fileID: 11400000, guid: 0dd5b227fb7b62541b0fbccda677392d, type: 2}
   dropPrefab: {fileID: 8730514117533583190, guid: 7aaa3324c1c4b054ebebaafe3343bf25, type: 3}

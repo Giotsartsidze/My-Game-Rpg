@@ -9742,7 +9742,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -0.000030517578, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10335,7 +10335,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3525408569785757198
 Transform:
   m_ObjectHideFlags: 0
@@ -10508,7 +10508,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9209f5c03870ad140b30358835f156bb, type: 2}
   - {fileID: 11400000, guid: b66b0f27ad01c7842a4116772ce69b99, type: 2}
   - {fileID: 11400000, guid: 23dab0def0f934e4798e7f071ba6ecfa, type: 2}
-  - {fileID: 11400000, guid: 69369925ed773dd4f904c6f9ad97e8a1, type: 2}
+  - {fileID: 11400000, guid: 6835c34bd80fc9c468d2f549f4b6220a, type: 2}
   - {fileID: 11400000, guid: b1342fd16e2c376479833731e2df12f3, type: 2}
   - {fileID: 11400000, guid: 14caadcff121d434e8b031ae47985e10, type: 2}
   dropPrefab: {fileID: 8730514117533583190, guid: 7aaa3324c1c4b054ebebaafe3343bf25, type: 3}
