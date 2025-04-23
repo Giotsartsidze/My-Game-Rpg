@@ -27,8 +27,12 @@ public class UI_InGame : MonoBehaviour
     {
         if (playerStats != null)
             playerStats.onHealthChanged += UpdateHealthUI;
+        else
+            Debug.LogError("PlayerStats is not assigned in UI_InGame");
 
         skills = SkillManager.instance;
+        if (skills == null)
+            Debug.LogError("SkillManager instance is null in UI_InGame");
     }
 
     
@@ -48,7 +52,7 @@ public class UI_InGame : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse1) && skills.sword.swordUnlocked)
             SetCooldownOf(swordImage);
 
-        if (Input.GetKeyDown(KeyCode.R) && skills.blackhole.blackholeUnlocked)
+        if (Input.GetKeyDown(KeyCode.R) && skills.blackhole.BlackholeUnlocked)
             SetCooldownOf(blackholeImage);
 
 
@@ -60,20 +64,25 @@ public class UI_InGame : MonoBehaviour
         CheckCooldownOf(crystalImage, skills.crystal.cooldown);
         CheckCooldownOf(swordImage, skills.sword.cooldown);
         CheckCooldownOf(blackholeImage, skills.blackhole.cooldown);
-
         CheckCooldownOf(flaskImage, Inventory.instance.flaskCooldown);
 
     }
 
     private void UpdateSoulsUI()
     {
-        if (soulsAmount < PlayerManager.instance.GetCurrency())
-            soulsAmount += Time.deltaTime * increaseRate;
+        if (PlayerManager.instance != null)
+        {
+            if (soulsAmount < PlayerManager.instance.GetCurrency())
+                soulsAmount += Time.deltaTime * increaseRate;
+            else
+                soulsAmount = PlayerManager.instance.GetCurrency();
+
+            currentSouls.text = ((int)soulsAmount).ToString();
+        }
         else
-            soulsAmount = PlayerManager.instance.GetCurrency();
-
-
-        currentSouls.text = ((int)soulsAmount).ToString();
+        {
+            Debug.LogWarning("PlayerManager instance is null in UI_InGame.UpdateSoulsUI()");
+        }
     }
 
     private void UpdateHealthUI()

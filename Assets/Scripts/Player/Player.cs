@@ -43,7 +43,7 @@ public class Player : Entity
     public PlayerPrimaryAttackState primaryAttack { get; private set; }
     public PlayerCounterAttackState counterAttack { get; private set; }
 
-    public PlayerAimSwordState aimSowrd { get; private set; }
+    public PlayerAimSwordState aimSword { get; private set; }
     public PlayerCatchSwordState catchSword { get; private set; }
     public PlayerBlackholeState blackHole { get; private set; }
     public PlayerDeadState deadState { get; private set; }
@@ -65,7 +65,7 @@ public class Player : Entity
         primaryAttack = new PlayerPrimaryAttackState(this, stateMachine, "Attack");
         counterAttack = new PlayerCounterAttackState(this, stateMachine, "CounterAttack");
 
-        aimSowrd = new PlayerAimSwordState(this, stateMachine, "AimSword");
+        aimSword = new PlayerAimSwordState(this, stateMachine, "AimSword");
         catchSword = new PlayerCatchSwordState(this, stateMachine, "CatchSword");
         blackHole = new PlayerBlackholeState(this, stateMachine, "Jump");
 
@@ -90,23 +90,43 @@ public class Player : Entity
 
     protected override void Update()
     {
-
         if (Time.timeScale == 0)
             return;
 
         base.Update();
 
+        if (stateMachine?.currentState == null)
+        {
+            return;
+        }
+
         stateMachine.currentState.Update();
 
         CheckForDashInput();
 
+        if (skill == null)
+        {
+            Debug.LogError("SkillManager is null");
+            return;
+        }
 
-        if (Input.GetKeyDown(KeyCode.F) && skill.crystal.crystalUnlocked)
-            skill.crystal.CanUseSkill();
+        if (skill.crystal != null && skill.crystal.crystalUnlocked)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+                skill.crystal.CanUseSkill();
+        }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            Inventory.instance.UseFlask();
+        if (Inventory.instance != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                Inventory.instance.UseFlask();
+        }
+        else
+        {
+            Debug.LogError("Inventory instance is null!");
+        }
     }
+
 
     public override void SlowEntityBy(float _slowPercentage, float _slowDuration)
     {
@@ -138,6 +158,7 @@ public class Player : Entity
         stateMachine.ChangeState(catchSword);
         Destroy(sword);
     }
+
 
     public IEnumerator BusyFor(float _seconds)
     {

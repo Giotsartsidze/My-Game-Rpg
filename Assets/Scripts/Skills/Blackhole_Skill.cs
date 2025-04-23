@@ -8,7 +8,7 @@ public class Blackhole_Skill : Skill
 
 
     [SerializeField] private UI_SkillTreeSlot blackHoleUnlockButton;
-    public bool blackholeUnlocked;// { get; private set; }
+    public bool BlackholeUnlocked { get; private set; }
     [SerializeField] private int amountOfAttacks;
     [SerializeField] private float cloneCooldown;
     [SerializeField] private float blackholeDuration;
@@ -19,14 +19,14 @@ public class Blackhole_Skill : Skill
     [SerializeField] private float shrinkSpeed;
 
 
-    Blackhole_Skill_Controller currentBlackhole;
+    Blackhole_Skill_Controller _currentBlackhole;
 
     
 
     private void UnlockBlackhole()
     {
         if (blackHoleUnlockButton.unlocked)
-            blackholeUnlocked = true;
+            BlackholeUnlocked = true;
 
     }
     public override bool CanUseSkill()
@@ -42,9 +42,9 @@ public class Blackhole_Skill : Skill
 
         GameObject newBlackHole = Instantiate(blackHolePrefab,player.transform.position,Quaternion.identity);
 
-        currentBlackhole = newBlackHole.GetComponent<Blackhole_Skill_Controller>();
+        _currentBlackhole = newBlackHole.GetComponent<Blackhole_Skill_Controller>();
 
-        currentBlackhole.SetupBlackhole(maxSize, growSpeed, shrinkSpeed, amountOfAttacks, cloneCooldown,blackholeDuration);
+        _currentBlackhole.SetupBlackhole(maxSize, growSpeed, shrinkSpeed, amountOfAttacks, cloneCooldown,blackholeDuration);
 
 
         AudioManager.instance.PlaySFX(18, player.transform);
@@ -66,13 +66,13 @@ public class Blackhole_Skill : Skill
 
     public bool SkillCompleted()
     {
-        if (!currentBlackhole)
+        if (!_currentBlackhole)
             return false;
 
 
-        if (currentBlackhole.playerCanExitState)
+        if (_currentBlackhole.playerCanExitState)
         {
-            currentBlackhole = null;
+            _currentBlackhole = null;
             return true;
         }
 

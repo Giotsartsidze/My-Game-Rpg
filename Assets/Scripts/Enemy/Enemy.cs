@@ -51,26 +51,27 @@ public class Enemy : Entity
         fx = GetComponent<EntityFX>();
     }
 
-    protected override void Update()
+    protected virtual void Update()
     {
         base.Update();
-
-
-        stateMachine.currentState.Update();
-
-
+    
+        if (stateMachine?.currentState != null)
+            stateMachine.currentState.Update();
     }
 
     public virtual void AssignLastAnimName(string _animBoolName) => lastAnimBoolName = _animBoolName;
 
 
-    public override void SlowEntityBy(float _slowPercentage, float _slowDuration)
+    public virtual void SlowEntityBy(float _slowPercentage, float _slowDuration)
     {
+        if (_slowPercentage < 0 || _slowDuration <= 0)
+            return;
+        
         moveSpeed = moveSpeed * (1 - _slowPercentage);
         anim.speed = anim.speed * (1 - _slowPercentage);
-
         Invoke("ReturnDefaultSpeed", _slowDuration);
     }
+
 
     protected override void ReturnDefaultSpeed()
     {
@@ -108,8 +109,11 @@ public class Enemy : Entity
     public virtual void OpenCounterAttackWindow()
     {
         canBeStunned = true;
-        counterImage.SetActive(true);
+        if (counterImage != null)
+            counterImage.SetActive(true);
     }
+
+
 
     public virtual void CloseCounterAttackWindow()
     {
@@ -137,18 +141,18 @@ public class Enemy : Entity
 
     public virtual RaycastHit2D IsPlayerDetected()
     {
-         RaycastHit2D playerDetected =  Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, 50, whatIsPlayer);
-         RaycastHit2D wallDetected =  Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, 50, whatIsGround);
+        RaycastHit2D playerDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, 50, whatIsPlayer);
+        RaycastHit2D wallDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, 50, whatIsGround);
 
-        if (wallDetected)
-        {
-            if(wallDetected.distance < playerDetected.distance)
-            {
-                return default(RaycastHit2D);
-            }
-        }
+        if (!playerDetected.collider) // If no player was detected
+            return default(RaycastHit2D);
+        
+        if (wallDetected.collider && wallDetected.distance < playerDetected.distance)
+            return default(RaycastHit2D);
+        
         return playerDetected;
     }
+
     protected override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
