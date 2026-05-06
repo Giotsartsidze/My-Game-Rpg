@@ -6,6 +6,7 @@ public class EnemyStats : CharacterStats
 {
     private Enemy enemy;
     private ItemDrop myDropSystem;
+    private Room currentRoom;
     public Stat soulsDropAmount;
 
     [Header("Level details")]
@@ -63,17 +64,28 @@ public class EnemyStats : CharacterStats
         base.TakeDamage(_damage);
     }
 
+    public void SetRoom(Room room) => currentRoom = room;
+
     protected override void Die()
     {
         base.Die();
 
         myDropSystem.GenerateDrop();
 
-
         enemy.Die();
 
-        PlayerManager.instance.currency += soulsDropAmount.GetValue();
+        // Run gold instead of persistent currency
+        if (RunManager.instance != null)
+        {
+            RunManager.instance.AddRunGold(soulsDropAmount.GetValue());
+            RunManager.instance.RegisterEnemyKill();
+        }
+        else
+        {
+            PlayerManager.instance.currency += soulsDropAmount.GetValue();
+        }
 
+        currentRoom?.OnEnemyDied();
 
         Destroy(gameObject, 5f);
     }

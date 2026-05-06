@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour, ISaveManager
         checkpoints = FindObjectsOfType<Checkpoint>();
 
         player = PlayerManager.instance.player.transform;
+
+        if (RunManager.instance != null && !RunManager.instance.isRunActive)
+            RunManager.instance.StartRun();
     }
     private void Update()
     {

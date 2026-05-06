@@ -8,6 +8,9 @@ public class UI : MonoBehaviour, ISaveManager
     [SerializeField] private UI_FadeScreen fadeScreen;
     [SerializeField] private GameObject endText;
     [SerializeField] private GameObject restartButton;
+
+    [Header("Death screen (roguelite)")]
+    [SerializeField] private UI_DeathScreen deathScreen;
     [Space]
 
     [SerializeField] private GameObject charcaterUI;
@@ -132,7 +135,23 @@ public class UI : MonoBehaviour, ISaveManager
 
     }
 
-    public void RestartGameButton() => GameManager.instance.RestartScene();
+    public void SwitchOnDeathScreen()
+    {
+        fadeScreen.FadeOut();
+
+        if (deathScreen != null)
+            deathScreen.Show();
+        else
+            StartCoroutine(EndScreenCorutione()); // fallback to old screen if not assigned
+    }
+
+    public void RestartGameButton()
+    {
+        if (RunManager.instance != null)
+            RunManager.instance.RestartRun();
+        else
+            GameManager.instance.RestartScene();
+    }
 
     public void LoadData(GameData _data)
     {

@@ -86,7 +86,7 @@ public class Entity : MonoBehaviour
 
 
         if(knockbackPower.x > 0 || knockbackPower.y > 0) // This line makes player immune to freeze effect when he takes hit
-            rb.velocity = new Vector2((knockbackPower.x + xOffset) * knockbackDir, knockbackPower.y);
+            rb.linearVelocity = new Vector2((knockbackPower.x + xOffset) * knockbackDir, knockbackPower.y);
 
         yield return new WaitForSeconds(knockbackDuration);
         isKnocked = false;
@@ -104,7 +104,7 @@ public class Entity : MonoBehaviour
         if (isKnocked)
             return;
 
-        rb.velocity = new Vector2(0, 0);
+        rb.linearVelocity = new Vector2(0, 0);
     }
 
     public void SetVelocity(float _xVelocity, float _yVelocity)
@@ -112,7 +112,7 @@ public class Entity : MonoBehaviour
         if (isKnocked)
             return;
 
-        rb.velocity = new Vector2(_xVelocity, _yVelocity);
+        rb.linearVelocity = new Vector2(_xVelocity, _yVelocity);
         FlipController(_xVelocity);
     }
     #endregion

@@ -23,9 +23,9 @@ public class Arrow_Controller : MonoBehaviour
     private void Update()
     {
         if(canMove)
-            rb.velocity = new Vector2(xVelocity,rb.velocity.y);
+            rb.linearVelocity = new Vector2(xVelocity,rb.linearVelocity.y);
 
-        if(facingDir == 1 && rb.velocity.x < 0)
+        if(facingDir == 1 && rb.linearVelocity.x < 0)
         {
             facingDir = -1;
             sr.flipX = true;

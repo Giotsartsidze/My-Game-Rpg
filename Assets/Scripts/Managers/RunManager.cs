@@ -1,0 +1,82 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class RunManager : MonoBehaviour
+{
+    public static RunManager instance;
+
+    [Header("Run State")]
+    public bool isRunActive;
+    public int runGold;
+    public int enemiesKilled;
+    public float timeElapsed;
+    public int roomsCleared;
+
+    // Persists between runs via DontDestroyOnLoad
+    public static int metaCurrency;
+
+    [Header("Settings")]
+    [SerializeField] private float goldToMetaRatio = 0.3f;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Update()
+    {
+        if (isRunActive)
+            timeElapsed += Time.deltaTime;
+    }
+
+    public void StartRun()
+    {
+        runGold = 0;
+        enemiesKilled = 0;
+        timeElapsed = 0f;
+        roomsCleared = 0;
+        isRunActive = true;
+    }
+
+    public void EndRun()
+    {
+        isRunActive = false;
+
+        int earned = Mathf.FloorToInt(runGold * goldToMetaRatio);
+        metaCurrency += earned;
+    }
+
+    public void RestartRun()
+    {
+        // Deliberately skip SaveManager — death does not save run state
+        StartRun();
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
+
+    public void AddRunGold(int amount)
+    {
+        if (!isRunActive) return;
+        runGold += amount;
+    }
+
+    public void RegisterEnemyKill()
+    {
+        if (!isRunActive) return;
+        enemiesKilled++;
+    }
+
+    public string GetFormattedTime()
+    {
+        int m = Mathf.FloorToInt(timeElapsed / 60f);
+        int s = Mathf.FloorToInt(timeElapsed % 60f);
+        return $"{m:00}:{s:00}";
+    }
+}

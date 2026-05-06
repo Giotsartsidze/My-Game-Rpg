@@ -18,7 +18,7 @@ public class SlimeStunnedState : EnemyState
 
         stateTimer = enemy.stunDuration;
 
-        rb.velocity = new Vector2(-enemy.facingDir * enemy.stunDirection.x, enemy.stunDirection.y);
+        rb.linearVelocity = new Vector2(-enemy.facingDir * enemy.stunDirection.x, enemy.stunDirection.y);
     }
 
     public override void Exit()
@@ -32,7 +32,7 @@ public class SlimeStunnedState : EnemyState
     {
         base.Update();
 
-        if (rb.velocity.y < .1f && enemy.IsGroundDetected())
+        if (rb.linearVelocity.y < .1f && enemy.IsGroundDetected())
         {
             enemy.fx.Invoke("CancelColorChange", 0);
             enemy.anim.SetTrigger("StunFold");
