@@ -116,6 +116,13 @@ public class Player : Entity
                 skill.crystal.CanUseSkill();
         }
 
+        if (skill.sword.blinkUnlocked && sword != null && Input.GetKeyDown(KeyCode.E))
+        {
+            Sword_Skill_Controller sc = sword.GetComponent<Sword_Skill_Controller>();
+            if (sc != null && sc.IsStuck())
+                BlinkToSword();
+        }
+
         if (Inventory.instance != null)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -166,6 +173,14 @@ public class Player : Entity
 
         yield return new WaitForSeconds(_seconds);
         isBusy = false;
+    }
+
+    private void BlinkToSword()
+    {
+        transform.position = sword.transform.position;
+        fx.PlayDustFX();
+        fx.ScreenShake(fx.shakeSwordImpact);
+        sword.GetComponent<Sword_Skill_Controller>().ReturnSword();
     }
 
     public void AnimationTrigger() => stateMachine.currentState.AnimationFinishTrigger();

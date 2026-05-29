@@ -48,6 +48,10 @@ public class Sword_Skill : Skill
     [SerializeField] private UI_SkillTreeSlot vulnerableUnlockButton;
     public bool vulnerableUnlocked { get; private set; }
 
+    [Header("Blink Strike")]
+    [SerializeField] private UI_SkillTreeSlot blinkUnlockButton;
+    public bool blinkUnlocked { get; private set; }
+
 
 
     private Vector2 finalDir;
@@ -75,6 +79,8 @@ public class Sword_Skill : Skill
         spinUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockSpinSword);
         timeStopUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockTimeStop);
         vulnerableUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockVulnurable);
+        if (blinkUnlockButton != null)
+            blinkUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockBlink);
 
     }
 
@@ -135,6 +141,7 @@ public class Sword_Skill : Skill
         UnlockPierceSword();
         UnlockTimeStop();
         UnlockVulnurable();
+        UnlockBlink();
     }
     private void UnlockTimeStop()
     {
@@ -146,6 +153,12 @@ public class Sword_Skill : Skill
     {
         if (vulnerableUnlockButton.unlocked)
             vulnerableUnlocked = true;
+    }
+
+    private void UnlockBlink()
+    {
+        if (blinkUnlockButton != null && blinkUnlockButton.unlocked)
+            blinkUnlocked = true;
     }
 
     private void UnlockSword()

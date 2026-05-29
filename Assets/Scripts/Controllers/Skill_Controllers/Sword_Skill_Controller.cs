@@ -91,6 +91,8 @@ public class Sword_Skill_Controller : MonoBehaviour
         hitCooldown = _hitCooldown;
     }
 
+    public bool IsStuck() => !canRotate && !isReturning;
+
     public void ReturnSword()
     {
         rb.constraints = RigidbodyConstraints2D.FreezeAll;

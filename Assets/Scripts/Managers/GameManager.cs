@@ -39,9 +39,6 @@ public class GameManager : MonoBehaviour, ISaveManager
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-            RestartScene();
-
         if (Input.GetKeyDown(KeyCode.G))
         {
             if (!pasuedGame)

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RunManager : MonoBehaviour
+public class RunManager : MonoBehaviour, ISaveManager
 {
     public static RunManager instance;
 
@@ -12,8 +12,7 @@ public class RunManager : MonoBehaviour
     public float timeElapsed;
     public int roomsCleared;
 
-    // Persists between runs via DontDestroyOnLoad
-    public static int metaCurrency;
+    public int metaCurrency;
 
     [Header("Settings")]
     [SerializeField] private float goldToMetaRatio = 0.3f;
@@ -55,7 +54,7 @@ public class RunManager : MonoBehaviour
 
     public void RestartRun()
     {
-        // Deliberately skip SaveManager — death does not save run state
+        SaveManager.instance?.SaveGame();
         StartRun();
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
@@ -78,5 +77,15 @@ public class RunManager : MonoBehaviour
         int m = Mathf.FloorToInt(timeElapsed / 60f);
         int s = Mathf.FloorToInt(timeElapsed % 60f);
         return $"{m:00}:{s:00}";
+    }
+
+    public void LoadData(GameData _data)
+    {
+        metaCurrency = _data.metaCurrency;
+    }
+
+    public void SaveData(ref GameData _data)
+    {
+        _data.metaCurrency = metaCurrency;
     }
 }

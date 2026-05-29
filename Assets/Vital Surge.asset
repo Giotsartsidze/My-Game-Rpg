@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec1f60f3537574dd4b669a9acfbf60de, type: 3}
   m_Name: Vital Surge
   m_EditorClassIdentifier: Assembly-CSharp::BoonData
-  boonName: 
+  boonName: Vital Surge
   description: 
   icon: {fileID: 0}
-  effectType: 0
+  effectType: 2
   statType: 0
-  statValue: 0
+  statValue: 20
   healAmount: 0
