@@ -6,6 +6,7 @@ public class Room : MonoBehaviour
     [SerializeField] private List<GameObject> enemies;
     [SerializeField] private RoomGate exitGate;
     [SerializeField] private bool offerBoonOnClear = true;
+    [SerializeField] private bool isBossRoom = false;
 
     private int aliveCount;
     private bool activated;
@@ -59,13 +60,21 @@ public class Room : MonoBehaviour
         if (cleared) return;
         cleared = true;
 
+        if (RunManager.instance != null)
+            RunManager.instance.roomsCleared++;
+
+        if (isBossRoom)
+        {
+            RunManager.instance?.EndRunAsVictor();
+            SaveManager.instance?.SaveGame();
+            GameObject.Find("Canvas").GetComponent<UI>().SwitchOnWinScreen();
+            return;
+        }
+
         if (exitGate != null)
             exitGate.Open();
 
         if (offerBoonOnClear && BoonManager.instance != null)
             BoonManager.instance.OfferBoons();
-
-        if (RunManager.instance != null)
-            RunManager.instance.roomsCleared++;
     }
 }

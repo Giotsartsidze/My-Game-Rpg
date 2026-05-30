@@ -16,6 +16,7 @@ public class RunManager : MonoBehaviour, ISaveManager
 
     [Header("Settings")]
     [SerializeField] private float goldToMetaRatio = 0.3f;
+    public int victoryBonusSouls = 100;
 
     private void Awake()
     {
@@ -46,10 +47,18 @@ public class RunManager : MonoBehaviour, ISaveManager
 
     public void EndRun()
     {
+        if (!isRunActive) return;
+
         isRunActive = false;
 
         int earned = Mathf.FloorToInt(runGold * goldToMetaRatio);
         metaCurrency += earned;
+    }
+
+    public void EndRunAsVictor()
+    {
+        EndRun();
+        metaCurrency += victoryBonusSouls;
     }
 
     public void RestartRun()

@@ -11,6 +11,7 @@ public class UI : MonoBehaviour, ISaveManager
 
     [Header("Death screen (roguelite)")]
     [SerializeField] private UI_DeathScreen deathScreen;
+    [SerializeField] private UI_WinScreen winScreen;
     [Space]
 
     [SerializeField] private GameObject charcaterUI;
@@ -142,7 +143,15 @@ public class UI : MonoBehaviour, ISaveManager
         if (deathScreen != null)
             deathScreen.Show();
         else
-            StartCoroutine(EndScreenCorutione()); // fallback to old screen if not assigned
+            StartCoroutine(EndScreenCorutione());
+    }
+
+    public void SwitchOnWinScreen()
+    {
+        fadeScreen.FadeOut();
+
+        if (winScreen != null)
+            winScreen.Show();
     }
 
     public void RestartGameButton()
